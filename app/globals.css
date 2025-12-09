@@ -1,26 +1,163 @@
-@import "tailwindcss";
+/* app/globals.css */
+
+/* Reset-ish */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body,#root { height: 100%; }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #000;
+  --fg: #fff;
+  --muted: #cfcfcf;
+  --accent: #fff;
+  --max-width: 980px;
+  --radius: 10px;
+  --gap: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* page background + default */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+  padding: 40px 20px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* container center */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 36px;
+}
+
+/* header/logo row */
+.header {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom: 40px;
+}
+.logo {
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  filter: invert(1); /* ensures white on black for simple PNG/SVG */
+}
+.site-title {
+  font-weight:700;
+  font-size:28px;
+}
+
+/* Main hero */
+.hero {
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  align-items:start;
+}
+@media(min-width:900px){
+  .hero { grid-template-columns: 1fr 420px; }
+}
+
+.h1 {
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 18px;
+  max-width: 70ch;
+}
+
+/* subscribe card */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 22px;
+  border-radius: var(--radius);
+}
+
+.form-row {
+  display:flex;
+  gap:8px;
+  margin-bottom:10px;
+}
+.input {
+  flex:1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  color: var(--fg);
+  outline: none;
+}
+.button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.small {
+  font-size:13px;
+  color: var(--muted);
+}
+
+/* success message */
+.success {
+  margin-top:10px;
+  padding:10px;
+  border-radius: 8px;
+  background: rgba(0,255,0,0.06);
+  color: #c7f5c7;
+  font-weight:600;
+}
+
+/* footer note */
+.note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+/* logo colors & layout */
+:root {
+  --site-bg: #000;
+  --site-fg: #fff;
+}
+
+/* light mode */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --site-bg: #fff;
+    --site-fg: #000;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  background: var(--site-bg);
+  color: var(--site-fg);
+}
+
+/* logo sizing and color (currentColor used by SVG) */
+.seekync-logo {
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--site-fg);
+  width: 220px;      /* default width */
+  height: auto;
+  max-width: 45vw;
+}
+
+/* smaller on phone */
+@media (max-width: 640px) {
+  .seekync-logo { width: 160px; max-width: 60vw; }
 }
