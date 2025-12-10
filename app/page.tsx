@@ -1,38 +1,25 @@
 // app/page.tsx
-import SubscribeForm from "./components/SubscribeForm";
+import React from "react";
+import dynamic from "next/dynamic";
+
+// small server-side landing import (server component can import directly)
+import LandingPage from "./landing/page";
+
+// dynamic import for the heavy main site (client/server as needed)
+const MainSite = dynamic(() => import("./site/home/page").then(m => m.default), {
+  ssr: true, // set true if main site needs SSR; false to client-only
+  loading: () => <div style={{padding:40,color:'#fff'}}>Loading site...</div>,
+});
 
 export default function Page() {
-  return (
-    <main className="container">
-      {/* HEADER */}
-     <header className="header fade-in">
-  {/* TRIANGLE LOGO (PURE CSS) */}
-  <div className="logo-triangle"></div>
+  // read environment switch
+  const mode = process.env.NEXT_PUBLIC_SITE_MODE || "landing";
 
-  {/* BRAND TEXT */}
-  <div className="site-title">SEEKYNC</div>
-</header>
+  if (mode === "main") {
+    // render the main site root (this will render /app/site/home/page)
+    return <MainSite />;
+  }
 
-
-
-      {/* HERO */}
-      <section className="hero-wrapper">
-        <h1 className="h1-main fade-in delay-1">
-          BUILD THE FUTURE.<br />
-          PROMPT THE WORLD.
-        </h1>
-        
-        <p className="lead fade-in delay-2">
-          The premium community marketplace for AI creators.
-        </p>
-
-        {/* B&W CARD */}
-        <div className="bw-card fade-in delay-2">
-          <h3 className="card-title">Request Access</h3>
-          <SubscribeForm />
-          <div className="note">Secure. No Spam.</div>
-        </div>
-      </section>
-    </main>
-  );
+  // default: landing
+  return <LandingPage />;
 }
