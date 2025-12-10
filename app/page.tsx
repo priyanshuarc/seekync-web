@@ -13,6 +13,8 @@ export default function Page() {
   <div className="site-title">SEEKYNC</div>
 </header>
 
+
+
       {/* HERO */}
       <section className="hero-wrapper">
         <h1 className="h1-main fade-in delay-1">
